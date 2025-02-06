@@ -25,4 +25,4 @@ jobs:
           run: dotnet build ./Notes/Notes.csproj
           
         - name: Test
-          run: dotnet test ./Notes/notes.sln 
+          run: dotnet test ./notes.sln 
