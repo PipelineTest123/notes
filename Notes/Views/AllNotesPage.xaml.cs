@@ -1,9 +1,12 @@
+using Notes.ViewModels;
+
 namespace Notes.Views;
 
 public partial class AllNotesPage : ContentPage
 {
-	public AllNotesPage()
+	public AllNotesPage(AllNotesViewModel viewModel)
 	{
+		this.BindingContext = viewModel;
 		InitializeComponent();
 	}
 
