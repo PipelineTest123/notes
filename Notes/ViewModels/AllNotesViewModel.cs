@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
-using Notes.Data;
+using Notes.Database.Data;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

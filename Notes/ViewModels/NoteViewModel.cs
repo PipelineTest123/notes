@@ -1,15 +1,15 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Input;
-using Notes.Data;
-using Notes.Models;
+using Notes.Database.Models;
+using Notes.Database.Data;
+
 
 
 namespace Notes.ViewModels;
 
 public partial class NoteViewModel : ObservableObject, IQueryAttributable
 {
-    private Models.Note _note;
+    private Note _note;
 
     public string Text
     {
