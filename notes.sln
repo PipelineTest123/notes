@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Database", "Notes.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Migrations", "Notes.Migrations\Notes.Migrations.csproj", "{9AEC2DD8-5820-4B20-AE5E-7DAD14632065}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Test", "Notes.Test\Notes.Test.csproj", "{1EB2872A-173F-4B3C-8850-7E0395B11F6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9AEC2DD8-5820-4B20-AE5E-7DAD14632065}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AEC2DD8-5820-4B20-AE5E-7DAD14632065}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AEC2DD8-5820-4B20-AE5E-7DAD14632065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EB2872A-173F-4B3C-8850-7E0395B11F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EB2872A-173F-4B3C-8850-7E0395B11F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EB2872A-173F-4B3C-8850-7E0395B11F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EB2872A-173F-4B3C-8850-7E0395B11F6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,7 +44,7 @@ public partial class NoteViewModel : ObservableObject, IQueryAttributable
 
 
     [RelayCommand]
-    private async Task Save()
+    public async Task Save()
     {
         _note.Date = DateTime.Now;
         if (_note.Id == 0)

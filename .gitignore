@@ -67,3 +67,5 @@ Notes.Migrations/obj/
 Notes.Migrations/bin/
 .vscode
 
+Notes.Test/obj
+Notes.Test/bin
