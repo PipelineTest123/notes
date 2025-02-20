@@ -5,16 +5,18 @@ using Notes.Database.Models;
 
 namespace Notes.Database.Data;
 
-public class NotesDbContext : DbContext
+public abstract class GenericDbContext : DbContext
 {
 
-    public NotesDbContext()
+    public GenericDbContext()
     { }
-    public NotesDbContext(DbContextOptions options) : base(options)
+    public GenericDbContext(DbContextOptions options) : base(options)
     { }
 
     public DbSet<Note> Notes { get; set; }
     public DbSet<Project> Projects { get; set; }
+
+    internal abstract string connectionName { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -28,8 +30,18 @@ public class NotesDbContext : DbContext
             .Build();
 
         optionsBuilder.UseSqlServer(
-            config.GetConnectionString("DevelopmentConnection"),
+            config.GetConnectionString(connectionName),
             m => m.MigrationsAssembly("Notes.Migrations"));
     }
 
+}
+
+public class NotesDbContext : GenericDbContext
+{
+    internal override String connectionName { get; set; } = "DevelopmentConnection";
+}
+
+public class TestDbContext : GenericDbContext
+{
+    internal override String connectionName { get; set; } = "TestConnection";
 }
