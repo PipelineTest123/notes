@@ -9,6 +9,7 @@ public class NoteViewModelTests : IClassFixture<DatabaseFixture>
     public NoteViewModelTests(DatabaseFixture fixture)
     {
         _fixture = fixture;
+        _fixture.Seed();
     }
 
     [Fact]
@@ -24,11 +25,11 @@ public class NoteViewModelTests : IClassFixture<DatabaseFixture>
 
         // Act
         _fixture._testDbContext.Add(note);
-        //_fixture._testDbContext.SaveChanges();
+        _fixture._testDbContext.SaveChanges();
 
 
         // Assert
-        //Assert.NotEqual(note.Id, 0);
+        Assert.NotEqual(note.Id, 0);
 
     }
 }
