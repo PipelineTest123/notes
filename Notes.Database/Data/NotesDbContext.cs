@@ -18,7 +18,7 @@ public abstract class GenericDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // 1. Get connection string from environment variable (GitHub Actions)
-        var connectionString = Environment.GetEnvironmentVariable("TestConnection");
+        var connectionString = Environment.GetEnvironmentVariable($"ConnectionStrings__{ConnectionName}");
 
         if (string.IsNullOrEmpty(connectionString))
         {
