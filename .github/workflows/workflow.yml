@@ -9,6 +9,14 @@ jobs:
         steps:
         - name: Checkout code
           uses: actions/checkout@v4
+
+        - name: Download SqlServer
+          uses: potatoqualitee/mssqlsuite@v1.7
+          with:
+            install: sqlengine, sqlpackage
+    
+        - name: Run sqlclient
+          run: sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "SELECT @@version;"
           
         - name: Setup .NET
           uses: actions/setup-dotnet@v4
@@ -20,9 +28,18 @@ jobs:
           
         - name: Restore dependencies
           run: dotnet restore ./Notes/Notes.csproj
+
+        - name: Install Tools
+          run: |
+            dotnet tool install --global dotnet-ef
+            dotnet tool install --global dotnet-coverage
           
         - name: Build project
-          run: dotnet build ./Notes/Notes.csproj
+          env: 
+            ConnectionStrings__TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}
+          run: dotnet build ./Notes/Notes.csproj --framework net8.0
           
         - name: Test
-          run: dotnet test ./notes.sln 
+          env: 
+            ConnectionStrings__TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}
+          run: dotnet test ./notes.sln --framework net8.0
