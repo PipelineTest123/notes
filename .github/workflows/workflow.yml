@@ -77,6 +77,11 @@ jobs:
           env: 
             ConnectionStrings__TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}
           run: dotnet build ./Notes/Notes.csproj --framework net8.0
+
+        - name: Test Migration
+          run: |
+            dotnet ef migrations add ${{ github.run_number }} --project ./Notes.Migrations/Notes.Migrations.csproj
+            dotnet ef database update --connection "${{ secrets.TestConnection_CONNECTION_STRING }}" --project ./Notes.Migrations/Notes.Migrations.csproj
           
         - name: Test
           env: 
