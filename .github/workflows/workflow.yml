@@ -60,13 +60,14 @@ jobs:
             key: ${{ runner.os }}-sonar-scanner
             restore-keys: ${{ runner.os }}-sonar-scanner
 
-        # Install the SonarCloud Scanner
         - name: Install SonarCloud scanner
           if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
           run: |
             mkdir -p .sonar/scanner
             dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
-            echo "$(Resolve-Path ./.sonar/scanner)" >> $env:GITHUB_PATH
+            echo "${{ github.workspace }}/.sonar/scanner" >> $GITHUB_PATH
+          
+
         - name: Start Sonar Analysis
           env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
