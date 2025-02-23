@@ -31,10 +31,10 @@ jobs:
         - name: Restore dependencies
           run: dotnet restore ./Notes/Notes.csproj
 
-        # - name: Install Tools
-        #   run: |
-        #     dotnet tool install --global dotnet-ef
-        #     dotnet tool install --global dotnet-coverage
+        - name: Install Tools
+          run: |
+            dotnet tool install --global dotnet-ef
+            dotnet tool install --global dotnet-coverage
 
             #Setup a Java JDK
         - name: Set up JDK 17
@@ -81,7 +81,7 @@ jobs:
         - name: Test
           env: 
             ConnectionStrings__TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}
-          run: dotnet test ./notes.sln --framework net8.0
+          run: dotnet-coverage collect "dotnet test ./notes.sln --framework net8.0" -f xml -o "coverage.xml"
 
         - name: End Sonar Analysis
           env:
