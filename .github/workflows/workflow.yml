@@ -31,10 +31,10 @@ jobs:
         - name: Restore dependencies
           run: dotnet restore ./Notes/Notes.csproj
 
-        - name: Install Tools
-          run: |
-            dotnet tool install --global dotnet-ef
-            dotnet tool install --global dotnet-coverage
+        # - name: Install Tools
+        #   run: |
+        #     dotnet tool install --global dotnet-ef
+        #     dotnet tool install --global dotnet-coverage
 
             #Setup a Java JDK
         - name: Set up JDK 17
@@ -66,9 +66,7 @@ jobs:
           run: |
             mkdir -p .sonar/scanner
             dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
-            Add-Content -Path $env:GITHUB_PATH -Value (Resolve-Path ./.sonar/scanner)
-
-
+            echo "$(Resolve-Path ./.sonar/scanner)" >> $env:GITHUB_PATH
         - name: Start Sonar Analysis
           env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -79,15 +77,12 @@ jobs:
             ConnectionStrings__TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}
           run: dotnet build ./Notes/Notes.csproj --framework net8.0
           
-        
-    
         - name: Test
-          env:
-            ConnectionStrings__TestConnection: ${{ secrets.TestDb_CONNECTION_STRING }}
-          run: dotnet-coverage collect "dotnet test ./notes.sln --framework net8.0" -f xml -o "coverage.xml"
+          env: 
+            ConnectionStrings__TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}
+          run: dotnet test ./notes.sln --framework net8.0
 
         - name: End Sonar Analysis
           env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-        
