@@ -60,19 +60,19 @@ jobs:
             key: ${{ runner.os }}-sonar-scanner
             restore-keys: ${{ runner.os }}-sonar-scanner
 
+        # Install the SonarCloud Scanner
         - name: Install SonarCloud scanner
           if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
           run: |
             mkdir -p .sonar/scanner
             dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
-            echo "${{ github.workspace }}/.sonar/scanner" >> $GITHUB_PATH
-          
-
+            echo "$(Resolve-Path ./.sonar/scanner)" >> $env:GITHUB_PATH
+            
         - name: Start Sonar Analysis
           env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           run: |
-            dotnet-sonarscanner begin /k:"PipelineTest123_notes" /o:"pipelinetest123" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.scanner.scanAll=false /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml                   
+            ./.sonar/scanner/dotnet-sonarscanner begin /k:"PipelineTest123_notes" /o:"pipelinetest123" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.scanner.scanAll=false /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml                   
         - name: Build project
           env: 
             ConnectionStrings__TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}
@@ -86,4 +86,4 @@ jobs:
         - name: End Sonar Analysis
           env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          run: ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
