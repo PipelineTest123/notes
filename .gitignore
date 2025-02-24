@@ -56,3 +56,16 @@ $RECYCLE.BIN/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+
+Notes/bin/
+Notes/obj/
+Notes.Database/obj/
+Notes.Database/bin/
+Notes.Database/appsettings.json
+Notes.Migrations/obj/
+Notes.Migrations/bin/
+.vscode
+
+Notes.Test/obj
+Notes.Test/bin
